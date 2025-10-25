@@ -3,6 +3,7 @@ import time
 from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional
+from .datatype_abstraction import Features
 
 
 class AbstractQueueManager(ABC):
@@ -82,7 +83,7 @@ class AbstractAsyncModelInference(ABC):
             'avg_inference_time': 0
         }
 
-    async def process_batch(self, batch: List[TextFeatures]) -> Dict[str, Any]:
+    async def process_batch(self, batch: List[Features]) -> Dict[str, Any]:
         """Process a batch of requests asynchronously (final method)."""
         pass
 
