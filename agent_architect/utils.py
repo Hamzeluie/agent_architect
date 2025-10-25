@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union
-from session_abstraction import AgentSessions
+from .session_abstraction import AgentSessions
 
 def get_priority_name(queue_name, priority):
     if priority == 0:
