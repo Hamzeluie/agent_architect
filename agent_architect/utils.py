@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union
-
+from session_abstraction import AgentSessions
 
 def get_priority_name(queue_name, priority):
     if priority == 0:
@@ -64,5 +64,11 @@ def go_next_service(current_stage_name:str, service_names:Optional[List[str]], c
         return next_channel
     return last_channel
 
+def get_all_channels(req:AgentSessions):
+    middle_channels = []
+    for service in req.service_names:
+        if service in req.channels_steps:
+            for priority in req.channels_steps[service]:
+                middle_channels.append(f"{service}:{priority}")
+    return middle_channels + [req.first_channel] + [req.last_channel]
      
-
