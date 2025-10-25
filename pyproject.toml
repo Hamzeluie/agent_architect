@@ -1,11 +1,19 @@
-# pyproject.toml
 [build-system]
-requires = ["setuptools >= 61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "agent_architect"
 version = "0.1.0"
 description = "Agent architecture abstractions"
-requires-python = ">=3.8"
-license = {text = "MIT"}
+license = "MIT"
+authors = ["mehdihamze73@gmail.com"]
+
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+# add other deps if needed
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
