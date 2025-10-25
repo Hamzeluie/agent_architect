@@ -42,7 +42,7 @@ class RedisQueueManager(AbstractQueueManagerClient):
         self.redis_client = await redis.from_url(self.redis_url, decode_responses=False)
         self.pubsub = self.redis_client.pubsub()
         await self.pubsub.subscribe(self.output_channel)
-        logger.info(f"Redis queue manager initialized for queue: {self.queue_name}")
+        logger.info(f"Redis queue manager initialized for queue")
     
     async def start_session(self, sid: str, owner_id:str, kb_ids:List[str], kb_limit:int):
         """Mark a session as active"""
