@@ -5,10 +5,10 @@ import time
 from typing import Dict, List, Any
 import redis.asyncio as redis
 import logging
-from models_abstraction import AbstractQueueManagerClient, AbstractInferenceClient, DynamicBatchManager
-from session_abstraction import SessionStatus, AgentSessions
-from utils import go_next_service, get_all_channels
-from datatype_abstraction import AudioFeatures
+from .models_abstraction import AbstractQueueManagerClient, AbstractInferenceClient, DynamicBatchManager
+from .session_abstraction import SessionStatus, AgentSessions
+from .utils import go_next_service, get_all_channels
+from .datatype_abstraction import AudioFeatures
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
