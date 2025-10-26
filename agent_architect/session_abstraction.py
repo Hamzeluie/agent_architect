@@ -16,23 +16,25 @@ class AgentSessions:
     def __init__(
         self,
         sid: str,
-        agent_name: str,
+        agent_type: str,
+        agent_id: str,
         service_names: Optional[List[str]],
         channels_steps: Optional[Dict[str, List[str]]],
-        owner_id:str,
-        kb_id:List[str]=[None],
-        kb_limit:int=5,
+        owner_id: str,
+        kb_id: List[str] = [None],
+        kb_limit: int = 5,
         status: SessionStatus = SessionStatus.ACTIVE,
         timeout: float = 30.0,
-        first_channel:str=None,
-        last_channel:str=None,
+        first_channel: str = None,
+        last_channel: str = None,
         created_at: Optional[float] = None,
     ):
         self.sid = sid
         self.status = status
         self.timeout = timeout
         self.created_at = created_at if created_at is not None else time.time()
-        self.agent_name = agent_name
+        self.agent_type = agent_type
+        self.agent_id = agent_id
         self.first_channel = first_channel
         self.last_channel = last_channel
         self.service_names = service_names or []
@@ -44,14 +46,14 @@ class AgentSessions:
     def __post_init__(self):
         if self.created_at is None:
             self.created_at = time.time()
-            
+
     def refresh_time(self) -> None:
         """Update the creation timestamp to extend session lifetime."""
         self.created_at = time.time()
 
     def is_expired(self) -> bool:
         """Check if the session has exceeded its timeout."""
-        return (time.time() - self.created_at) > self.timeout        
+        return (time.time() - self.created_at) > self.timeout
 
     def to_json(self) -> str:
         """Serialize session state to JSON string."""
@@ -60,13 +62,14 @@ class AgentSessions:
             "status": self.status,
             "timeout": self.timeout,
             "created_at": self.created_at,
-            "agent_name": self.agent_name,
+            "agent_type": self.agent_type,
+            "agent_id": self.agent_id,
             "first_channel": self.first_channel,
             "last_channel": self.last_channel,
             "service_names": self.service_names,
-            "owner_id" : self.owner_id,
-            "kb_id" : self.kb_id,
-            "kb_limit" : self.kb_limit,
+            "owner_id": self.owner_id,
+            "kb_id": self.kb_id,
+            "kb_limit": self.kb_limit,
             "channels_steps": dict(self.channels_steps),  # OrderedDict → dict for JSON
         }
         return json.dumps(data)
@@ -82,7 +85,8 @@ class AgentSessions:
             status=data["status"],
             timeout=data["timeout"],
             created_at=data["created_at"],
-            agent_name=data["agent_name"],
+            agent_type=data["agent_type"],
+            agent_id=data["agent_id"],
             first_channel=data["first_channel"],
             last_channel=data["last_channel"],
             service_names=data["service_names"],
@@ -93,5 +97,4 @@ class AgentSessions:
         )
 
     def __repr__(self) -> str:
-        return (f"AgentSessions(sid={self.sid}, agent={self.agent_name}, status={self.status}, create_at={self.created_at}, first_channel={self.first_channel}, last_channel={self.last_channel}, owner_id: {self.owner_id}") 
-    
+        return f"AgentSessions(sid={self.sid}, agent-type={self.agent_type}, agent-id={self.agent_id}, status={self.status}, create_at={self.created_at}, first_channel={self.first_channel}, last_channel={self.last_channel}, owner_id: {self.owner_id}"
