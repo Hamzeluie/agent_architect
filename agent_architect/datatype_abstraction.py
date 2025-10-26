@@ -46,9 +46,6 @@ class TextFeatures(Features):
 @dataclass
 class RAGFeatures(TextFeatures):
     owner_id: str
-    kb_id: List[str]
-    kb_limit: int
-
 
 @dataclass
 class ChannelNames:

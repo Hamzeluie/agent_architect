@@ -21,8 +21,6 @@ class AgentSessions:
         service_names: Optional[List[str]],
         channels_steps: Optional[Dict[str, List[str]]],
         owner_id: str,
-        kb_id: List[str] = [None],
-        kb_limit: int = 5,
         status: SessionStatus = SessionStatus.ACTIVE,
         timeout: float = 30.0,
         first_channel: str = None,
@@ -40,8 +38,6 @@ class AgentSessions:
         self.service_names = service_names or []
         self.channels_steps = OrderedDict(channels_steps or {})
         self.owner_id = owner_id
-        self.kb_id = kb_id
-        self.kb_limit = kb_limit
 
     def __post_init__(self):
         if self.created_at is None:
@@ -68,8 +64,6 @@ class AgentSessions:
             "last_channel": self.last_channel,
             "service_names": self.service_names,
             "owner_id": self.owner_id,
-            "kb_id": self.kb_id,
-            "kb_limit": self.kb_limit,
             "channels_steps": dict(self.channels_steps),  # OrderedDict → dict for JSON
         }
         return json.dumps(data)
@@ -91,8 +85,6 @@ class AgentSessions:
             last_channel=data["last_channel"],
             service_names=data["service_names"],
             owner_id=data["owner_id"],
-            kb_id=data["kb_id"],
-            kb_limit=data["kb_limit"],
             channels_steps=channels_steps,
         )
 
