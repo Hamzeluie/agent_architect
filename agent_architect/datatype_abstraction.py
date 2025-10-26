@@ -7,7 +7,7 @@ from typing import List, Union
 @dataclass
 class Features:
     sid: str
-    agent_id: str
+    agent_type: str
     priority: str
     created_at: float
 
@@ -45,7 +45,9 @@ class TextFeatures(Features):
 
 @dataclass
 class RAGFeatures(TextFeatures):
+    agent_id: str
     owner_id: str
+
 
 @dataclass
 class ChannelNames:
