@@ -10,6 +10,7 @@ class Features:
     agent_type: str
     priority: str
     created_at: float
+    is_final: bool
 
     def __post_init__(self):
         if self.created_at is None:
