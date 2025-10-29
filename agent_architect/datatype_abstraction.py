@@ -2,7 +2,7 @@ import json
 import time
 from dataclasses import asdict, dataclass, field
 from typing import List, Union
-
+import base64
 
 @dataclass
 class Features:
@@ -37,6 +37,19 @@ class Features:
 class AudioFeatures(Features):
     audio: bytes
     sample_rate: int
+
+    def to_json(self) -> str:
+        data = asdict(self)
+        # Encode bytes to base64 string
+        data['audio'] = base64.b64encode(self.audio).decode('utf-8')
+        return json.dumps(data)
+    
+    @classmethod
+    def from_json(cls, json_str: str):
+        data = json.loads(json_str)
+        # Decode base64 string back to bytes
+        data['audio'] = base64.b64decode(data['audio'])
+        return cls(**data)
 
 
 @dataclass
