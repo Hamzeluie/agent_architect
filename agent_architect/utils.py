@@ -74,6 +74,8 @@ def go_next_service(
 
         next_channel = f"{next_service}:{prioriry}"
         return next_channel
+    if sid == "" or None:
+        return last_channel
     return last_channel + f":{sid}"
 
 
